@@ -1,0 +1,31 @@
+import numpy as np
+
+# Langkah 1: Tentukan nilai r dan jumlah subinterval n
+r = (1.7 % 10) + 1  # r = 2.7
+print(r)
+n = int(r + 5)  # n = 7 subinterval
+print(n)
+
+# Langkah 2: Definisikan fungsi f(x) = e^(-r*x)
+def f(x):
+    return np.exp(-r * x)
+
+# Langkah 3: Implementasi metode trapesium
+def trapezoidal_rule(f, a, b, n):
+    h = (b - a) / n  # Lebar tiap subinterval
+    result = 0.5 * (f(a) + f(b))  # Nilai awal (dua ujung interval)
+
+    for i in range(1, n):
+        x_i = a + i * h
+        result += f(x_i)
+
+    result *= h  # Kalikan dengan lebar subinterval
+    return result
+
+# Hitung integral dari 0 hingga r dengan n subinterval
+a = 0
+b = r
+integral_result = trapezoidal_rule(f, a, b, n)
+
+# Tampilkan hasil
+print(f"Nilai integral menggunakan metode trapesium adalah: {integral_result:.6f}")
